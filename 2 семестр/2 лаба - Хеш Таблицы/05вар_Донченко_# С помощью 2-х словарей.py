@@ -1,0 +1,28 @@
+# Задание 5:
+# Дан текст. Выведите все слова, встречающиеся в тексте
+# по одному на каждую строку. Слова должны быть
+# отсортированы по убыванию их количества появления в тексте.
+
+Text = input('Введите текст: ')
+
+List_of_words = Text.split()
+D1 = {}
+D2 = {}
+
+# Словарь "Слово -> [Частота-Слово]"
+for word in List_of_words:
+    if word not in D1:
+        D1[word] = [1, word]
+    else:
+        D1[word][0] += 1
+
+# Словарь "Частота -> Слово"
+for E in D1.values():
+    if E[0] not in D2:
+        D2[E[0]] = [E[1]]
+    else:
+        D2[E[0]].append(E[1])
+
+for frequence in sorted(D2.keys(), reverse=True):
+    for word in sorted(D2[frequence]):
+        print(word)

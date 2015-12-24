@@ -1,0 +1,56 @@
+# Задание 7:
+# Створити class Коло (Circule), який би мав:
+# ---> конструктор, що задає його радіус та координати центру
+# ---> метод __str__ для перетворення на рядок для використання у функції print
+# ---> метод для обчислення площі
+# ---> метод для обчислення довжини кола
+# ---> метод, який би повертав діаметр
+# ---> метод, який би обчислював площу сектора, який задається кутом
+# ---> метод, який би обчислював довжину дуги, яка задається кутом
+# ---> метод який би визначав, чи перетинається дане коло з іншим колом
+
+from math import pi, sqrt
+
+def dist(x1, y1, z1, x2, y2, z2): # расстояние между двумя точками
+    return sqrt ((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
+
+class Circule:
+    ''' Класс "Окружность" '''
+    
+    def __init__(self, x, y, z, radius):
+        '''Создание новой окружности.'''
+        self.x = x
+        self.y = y
+        self.z = z
+        self.r = radius
+        
+    def __str__(self):
+        '''Вывод координат x, y, z и радиуса окружности.'''
+        return "Окружность с координатами ({0}, {1}, {2}) и радиусом {3}".format(self.x, self.y, self.z, self.r)
+
+    def area(self):
+        '''Площадь окружности'''
+        return round ( pi * self.r**2, 1)
+
+    def length(self):
+        '''Длина окружности'''
+        return round ( 2 * pi * self.r, 1)
+
+    def diameter(self):
+        '''Диаметр'''
+        return 2 * self.r
+
+    def sector_area(self, angle):
+        '''Площадь сектора, ограниченного углом angle'''
+        return round ( pi * self.r**2 * angle / 360, 1)
+
+    def curve_len(self, angle):
+        '''Длина дуги, которая ограничена углом angle'''
+        return round ( pi * self.r * angle / 180, 1)
+
+    def intersection(self, other):
+        '''Выводит True, если окружности пересекаются'''
+        Dist = dist(self.x, self.y, self.z, other.x, other.y, other.z) # расстояние между центрами
+        if Dist <= self.r + other.r and Dist >= abs(self.r - other.r):
+            return True
+        return False
